@@ -1,0 +1,6 @@
+#!/usr/bin/env ruby
+# vim: et ts=2 sw=2
+
+APP_PATH = File.expand_path("../../config/application",  __FILE__)
+require File.expand_path("../../config/boot",  __FILE__)
+require "rails/commands"
