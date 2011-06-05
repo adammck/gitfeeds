@@ -35,6 +35,11 @@ class RepoTest < ActiveSupport::TestCase
     assert repo.valid?
   end
 
+  test "should not allow duplicate urls" do
+    assert Repo.create(:url=>example_repo_url).valid?
+    assert Repo.create(:url=>example_repo_url).invalid?
+  end
+
   test "should raise Repo::NotCloned if the repo is queried before cloning" do
     assert_raises Repo::NotCloned do
       Repo.new(:url=>example_repo_url).commits

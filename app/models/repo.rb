@@ -2,7 +2,7 @@
 # vim: et ts=2 sw=2
 
 class Repo < ActiveRecord::Base
-  validates :url, :presence=>true, :is_git_url=>true
+  validates :url, :presence=>true, :uniqueness=>true, :is_git_url=>true
 
   after_create :clone_local
   after_destroy :delete_local
