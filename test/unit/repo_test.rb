@@ -4,6 +4,10 @@
 require "test_helper"
 
 class RepoTest < ActiveSupport::TestCase
+  def teardown
+    Repo.destroy_all
+  end
+
   test "should not validate without an url" do
     assert Repo.new.invalid?
   end
@@ -29,5 +33,16 @@ class RepoTest < ActiveSupport::TestCase
   test "should validate with a valid git repo url" do
     repo = Repo.new :url=>"git://github.com/adammck/gitfeed.git"
     assert repo.valid?
+  end
+
+  test "should raise Repo::NotCloned if the repo is queried before cloning" do
+    assert_raises Repo::NotCloned do
+      Repo.new(:url=>example_repo_url).commits
+    end
+  end
+
+  test "should fetch a list of all commits" do
+    repo = Repo.create! :url=>example_repo_url
+    assert repo.commits.length == 5
   end
 end
