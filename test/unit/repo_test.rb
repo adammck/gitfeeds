@@ -41,8 +41,12 @@ class RepoTest < ActiveSupport::TestCase
     end
   end
 
-  test "should fetch a list of all commits" do
+  test "should return a reverse-chronological list of all commits" do
     repo = Repo.create! :url=>example_repo_url
-    assert repo.commits.length == 5
+    ca = repo.commits
+
+    assert_equal "remove one and two.", ca.first.message # newest
+    assert_equal "add one.", ca.last.message # oldest
+    assert_equal 5, ca.length
   end
 end

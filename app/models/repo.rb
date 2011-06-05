@@ -11,8 +11,8 @@ class Repo < ActiveRecord::Base
   class NotCloned < RuntimeError; end
 
 
-  def commits
-    grit.commits
+  def commits(start="master", max_count=false)
+    grit.commits(start, max_count)
   end
 
 
