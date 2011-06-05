@@ -22,6 +22,13 @@ class ReposControllerTest < ActionController::TestCase
     end
   end
 
+  test "should not create invalid repos" do
+    post :create, :repo=>{ :url=>invalid_repo_url }
+    assert_not_nil assigns(:repo)
+    assert_template "repos/new"
+    assert_select "ul.errors"
+  end
+
   test "should not get index" do
     assert_no_route do
       get :index

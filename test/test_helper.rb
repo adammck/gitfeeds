@@ -12,4 +12,8 @@ class ActiveSupport::TestCase
   def example_repo_url
     "file://" + Rails.root.join("test", "dot_git").to_s
   end
+
+  def invalid_repo_url
+    "invalid"
+  end
 end
