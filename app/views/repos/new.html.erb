@@ -1,0 +1,15 @@
+<p class="intro"><%= t "repos.intro" %></p>
+
+<%= form_for @repo do |f| %>
+  <%= f.text_field :url %>
+
+  <% if @repo.errors.any? %>
+    <ul class="errors">
+      <% @repo.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+    </ul>
+  <% end %>
+
+  <%= f.submit t("repos.submit") %>
+<% end %>

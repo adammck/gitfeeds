@@ -2,5 +2,5 @@
 # vim: et ts=2 sw=2
 
 GitFeed::Application.routes.draw do
-  root :to=>"home#index"
+  resources :repos, :only=>[:new, :create, :show], :path=>"/", :path_names=>{ :new=>"" }
 end

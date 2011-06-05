@@ -1,11 +1,12 @@
+# vim: et ts=2 sw=2
+
 en:
   site_title: "GitFeed"
   footer: '<a href="http://github.com/adammck/gitfeed">GitFeed</a> is free software by <a href="http://adammck.com">Adam Mckaig</a>, available under <a href="http://github.com/adammck/gitfeed/blob/master/LICENSE">the BSD license</a>.'
 
-  home:
-    index:
-      intro: "Enter the Git URL of any repository to get started:"
-      submit: "Go"
+  repos:
+    intro: "Enter the Git URL of any repository to get started:"
+    submit: "Go"
 
   activerecord:
     errors:
