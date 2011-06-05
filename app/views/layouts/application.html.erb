@@ -1,7 +1,9 @@
 <!DOCTYPE html>
+<!-- vim: set et ts=2 sw=2: -->
+
 <html>
   <head>
-    <title>GitFeed</title>
+    <title><%= t :site_title %></title>
     <%= csrf_meta_tag %>
 
     <%= stylesheet_link_tag :all %>
@@ -9,7 +11,16 @@
   </head>
   <body>
 
-    <%= yield %>
+    <header>
+      <h1><%= link_to t(:site_title), :root %></h1>
+    </header>
 
+    <div class="main">
+      <%= yield %>
+    </div>
+
+    <footer>
+      <p><%= raw t :footer %></p>
+    </footer>
   </body>
 </html>
