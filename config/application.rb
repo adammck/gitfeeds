@@ -15,5 +15,6 @@ module GitFeed
 
     # gitfeed config
     config.recent_commits = 20
+    config.recent_tags = 20
   end
 end
