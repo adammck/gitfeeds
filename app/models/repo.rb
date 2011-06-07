@@ -37,7 +37,7 @@ class Repo < ActiveRecord::Base
   end
 
   def path
-    Rails.root.join "tmp", "repos", id.to_s + ".git"
+    Rails.root.join "tmp", "repos", Rails.env, id.to_s + ".git"
   end
 
   def grit
