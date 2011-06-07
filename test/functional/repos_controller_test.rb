@@ -35,15 +35,21 @@ class ReposControllerTest < ActionController::TestCase
 
   # repos/:id
 
-  test "should show list of recent commits" do
+  test "should show list of recent commits and tags" do
     repo = Repo.create(:url=>example_repo_url)
     get :show, :id=>repo.to_param
 
     assert_not_nil assigns(:repo)
     assert_template "repos/show"
 
+    # test/dot_git repo has five commits.
     assert_select "ul.commits" do
       assert_select "li", 5
+    end
+
+    # test/dot_git repo has three tags.
+    assert_select "ul.tags" do
+      assert_select "li", 3
     end
   end
 

@@ -6,3 +6,10 @@
     <li><%= commit.short_message %></li>
   <% end %>
 </ul>
+
+<h3><%= t("feeds.tags") %></h3>
+<ul class="tags">
+  <% @repo.tags.each do |tag| %>
+    <li><%= tag.name %></li>
+  <% end %>
+</ul>
