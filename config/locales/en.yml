@@ -6,10 +6,11 @@ en:
 
   repos:
     intro: "Enter the Git URL of any repository to get started:"
-    submit: "Go"
+    examples: "Or view a popular project for an example:"
 
   feeds:
     commits: "Recent Commits"
+    tags: "Recent Tags"
 
   activerecord:
     errors:

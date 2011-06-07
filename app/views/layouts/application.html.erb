@@ -5,17 +5,16 @@
   <head>
     <title><%= t :site_title %></title>
     <%= csrf_meta_tag %>
-
-    <%= stylesheet_link_tag :all %>
+    <%= stylesheet_link_tag "reset", "gitfeed" %>
     <%= javascript_include_tag :all %>
   </head>
   <body>
-
     <header>
       <h1><%= link_to t(:site_title), new_repo_path %></h1>
+      <%= yield :sub_header %>
     </header>
 
-    <div class="main">
+    <div id="main">
       <%= yield %>
     </div>
 

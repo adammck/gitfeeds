@@ -1,15 +1,24 @@
-<p class="intro"><%= t "repos.intro" %></p>
+<section>
+  <p><%= t "repos.intro" %></p>
+  <%= form_for @repo do |f| %>
+    <%= f.text_field :url %>
 
-<%= form_for @repo do |f| %>
-  <%= f.text_field :url %>
-
-  <% if @repo.errors.any? %>
-    <ul class="errors">
-      <% @repo.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
-    </ul>
+    <% if @repo.errors.any? %>
+      <ul class="errors">
+        <% @repo.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+      </ul>
+    <% end %>
   <% end %>
+</section>
 
-  <%= f.submit t("repos.submit") %>
-<% end %>
+<section>
+  <p><%= t "repos.examples" %></p>
+  <ul>
+    <li><%= link_to "Rails", repo_url(1) %></li>
+    <li><%= link_to "Django", repo_url(2) %></li>
+    <li><%= link_to "jQuery", repo_url(3) %></li>
+    <li><%= link_to "Linux", repo_url(4) %></li>
+  </ul>
+</section>
