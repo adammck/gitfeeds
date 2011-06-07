@@ -8,6 +8,9 @@ en:
     intro: "Enter the Git URL of any repository to get started:"
     submit: "Go"
 
+  feeds:
+    commits: "Recent Commits"
+
   activerecord:
     errors:
       messages:

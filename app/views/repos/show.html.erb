@@ -1,1 +1,8 @@
-repo: <%= @repo.url %>
+<h2><%= @repo.url %></h2>
+
+<h3><%= t("feeds.commits") %></h3>
+<ul class="commits">
+  <% @repo.commits.each do |commit| %>
+    <li><%= commit.short_message %></li>
+  <% end %>
+</ul>

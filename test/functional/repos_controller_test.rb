@@ -8,6 +8,9 @@ class ReposControllerTest < ActionController::TestCase
     Repo.destroy_all
   end
 
+
+  # repos#new (home page)
+
   test "should get new repo form" do
     get :new
     assert_response :success
@@ -28,6 +31,24 @@ class ReposControllerTest < ActionController::TestCase
     assert_template "repos/new"
     assert_select "ul.errors"
   end
+
+
+  # repos/:id
+
+  test "should show list of recent commits" do
+    repo = Repo.create(:url=>example_repo_url)
+    get :show, :id=>repo.to_param
+
+    assert_not_nil assigns(:repo)
+    assert_template "repos/show"
+
+    assert_select "ul.commits" do
+      assert_select "li", 5
+    end
+  end
+
+
+  # unimplemented resourceful actions
 
   test "should not get index" do
     assert_no_route do
@@ -52,6 +73,7 @@ class ReposControllerTest < ActionController::TestCase
       delete :update, :id=>1
     end
   end
+
 
   private
 
