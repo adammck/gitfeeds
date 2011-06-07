@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- vim: set et ts=2 sw=2: -->
+
+<rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/">
+  <channel>
+    <title><%= t ".title", :repo=>@repo.url %></title>
+    <link><%= link_to repo_url(@repo) %></link>
+
+    <% @commits.each do |commit| %>
+      <item>
+        <author><%= commit.author %></author>
+        <title><%= commit.short_message %></title>
+        <pubDate><%= commit.committed_date.to_s(:rfc822) %></pubDate>
+        <description><pre><%= commit_message(commit) %></pre></description>
+      </item>
+    <% end %>
+  </channel>
+</rss>

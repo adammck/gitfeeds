@@ -1,5 +1,5 @@
 <section>
-  <p><%= t "repos.intro" %></p>
+  <p><%= t ".intro" %></p>
   <%= form_for @repo do |f| %>
     <%= f.text_field :url %>
 
@@ -14,7 +14,7 @@
 </section>
 
 <section>
-  <p><%= t "repos.examples" %></p>
+  <p><%= t ".examples" %></p>
   <ul>
     <li><%= link_to "Rails", repo_url(1) %></li>
     <li><%= link_to "Django", repo_url(2) %></li>

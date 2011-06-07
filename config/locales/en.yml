@@ -4,15 +4,29 @@ en:
   site_title: "GitFeed"
   footer: '<a href="http://github.com/adammck/gitfeed">GitFeed</a> is free software by <a href="http://adammck.com">Adam Mckaig</a>, available under <a href="http://github.com/adammck/gitfeed/blob/master/LICENSE">the BSD license</a>.'
 
-  repos:
-    intro: "Enter the Git URL of any repository to get started:"
-    examples: "Or view a popular project for an example:"
 
-  feeds:
-    commits: "Recent Commits"
-    tags: "Recent Tags"
+  # views
+
+  repos:
+    new:
+      intro: "Enter the Git URL of any repository to get started:"
+      examples: "Or view a popular project for an example:"
+    show:
+      commits: "Recent Commits"
+      tags: "Recent Tags"
+    commits:
+      title: "Recent Commits to %{repo}"
+
+  # validation errors
 
   activerecord:
     errors:
       messages:
         not_a_git_url: "is not a Git URL"
+
+
+  # misc
+
+  feeds:
+    commits: "Recent Commits"
+    tags: "Recent Tags"
