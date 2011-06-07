@@ -18,6 +18,12 @@ class Repo < ActiveRecord::Base
     grit.commits("master", max_count)
   end
 
+  # Return +max_count+ most recent tags, or all tags if +max_count+ is false.
+  def tags(max_count=nil)
+    max_count = Rails.configuration.recent_tags if max_count.nil?
+    (max_count == false) ? grit.tags : grit.tags[0, max_count]
+  end
+
 
   private
 

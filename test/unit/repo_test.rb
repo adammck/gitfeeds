@@ -46,12 +46,15 @@ class RepoTest < ActiveSupport::TestCase
     end
   end
 
+
+  # commits
+
   test "should return a reverse-chronological list of all commits" do
     repo = Repo.create! :url=>example_repo_url
     ca = repo.commits(false)
 
     assert_equal "remove one and two.", ca.first.message # newest
-    assert_equal "add one.", ca.last.message # oldest
+    assert_equal "add one.", ca.last.message             # oldest
     assert_equal 5, ca.length
   end
 
@@ -61,5 +64,25 @@ class RepoTest < ActiveSupport::TestCase
 
     assert_equal 2, repo.commits.length    # app config
     assert_equal 1, repo.commits(1).length # explicit
+  end
+
+
+  # tags
+
+  test "should return a reverse-chronological list of all tags" do
+    repo = Repo.create! :url=>example_repo_url
+    ta = repo.tags(false)
+
+    assert_equal "three_four", ta.first.name # newest
+    assert_equal "one_two", ta.last.name     # oldest
+    assert_equal 3, ta.length
+  end
+
+  test "should limit the number of tags returned" do
+    repo = Repo.create! :url=>example_repo_url
+    Rails.configuration.recent_tags = 2
+
+    assert_equal 2, repo.tags.length    # app config
+    assert_equal 1, repo.tags(1).length # explicit
   end
 end
