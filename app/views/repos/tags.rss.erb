@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- vim: set et ts=2 sw=2: -->
+
+<rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/">
+  <channel>
+    <title><%= t ".title", :repo=>@repo.url %></title>
+    <link><%= link_to repo_url(@repo) %></link>
+
+    <% @tags.each do |tag| %>
+      <item>
+        <author><%= tag.tagger %></author>
+        <title><%= tag.name %></title>
+        <pubDate><%= tag.tag_date.to_s(:rfc822) %></pubDate>
+        <description><pre><%= tag.message %></pre></description>
+      </item>
+    <% end %>
+  </channel>
+</rss>

@@ -32,6 +32,15 @@ class ReposController < ApplicationController
     end
   end
 
+  # GET /:id/tags.rss
+  def tags
+    @tags = @repo.tags(20)
+
+    respond_to do |fmt|
+      fmt.rss
+    end
+  end
+
   def load_repo
     @repo = Repo.find(params[:id])
   end

@@ -4,6 +4,7 @@
 
 <% content_for :feeds do %>
   <%= auto_discovery_link_tag(:rss, {:action=>:commits}, :title=>t(".commits")) %>
+  <%= auto_discovery_link_tag(:rss, {:action=>:tags}, :title=>t(".tags")) %>
 <% end %>
 
 <section>

@@ -16,6 +16,8 @@ en:
       tags: "Recent Tags"
     commits:
       title: "Recent Commits to %{repo}"
+    tags:
+      title: "Recent Tags to %{repo}"
 
   # validation errors
 
@@ -23,10 +25,3 @@ en:
     errors:
       messages:
         not_a_git_url: "is not a Git URL"
-
-
-  # misc
-
-  feeds:
-    commits: "Recent Commits"
-    tags: "Recent Tags"
