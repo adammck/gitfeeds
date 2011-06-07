@@ -9,6 +9,11 @@ Bundler.require(:default, Rails.env)\
 
 module GitFeed
   class Application < Rails::Application
+
+    # rails config
     config.filter_parameters += [:password]
+
+    # gitfeed config
+    config.recent_commits = 20
   end
 end

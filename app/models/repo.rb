@@ -11,8 +11,11 @@ class Repo < ActiveRecord::Base
   class NotCloned < RuntimeError; end
 
 
-  def commits(start="master", max_count=false)
-    grit.commits(start, max_count)
+  # Return the +max_count+ most recent commits, or all commits if +max_count+ is
+  # false. (Warning: Trying to fetch all commits crashes WEBrick, and is dumb.)
+  def commits(max_count=nil)
+    max_count = Rails.configuration.recent_commits if max_count.nil?
+    grit.commits("master", max_count)
   end
 
 

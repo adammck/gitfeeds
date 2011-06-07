@@ -48,10 +48,18 @@ class RepoTest < ActiveSupport::TestCase
 
   test "should return a reverse-chronological list of all commits" do
     repo = Repo.create! :url=>example_repo_url
-    ca = repo.commits
+    ca = repo.commits(false)
 
     assert_equal "remove one and two.", ca.first.message # newest
     assert_equal "add one.", ca.last.message # oldest
     assert_equal 5, ca.length
+  end
+
+  test "should limit the number of commits returned" do
+    repo = Repo.create! :url=>example_repo_url
+    Rails.configuration.recent_commits = 2
+
+    assert_equal 2, repo.commits.length    # app config
+    assert_equal 1, repo.commits(1).length # explicit
   end
 end
