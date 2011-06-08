@@ -1,4 +1,9 @@
+# rails
 .bundle
 db/*.sqlite3
 log/*.log
 tmp/
+
+# adammck
+*.tmproj
+coverage*
