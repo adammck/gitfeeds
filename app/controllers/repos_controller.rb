@@ -41,7 +41,21 @@ class ReposController < ApplicationController
     end
   end
 
+  private
+
   def load_repo
-    @repo = Repo.find(params[:id])
+    @repo = Repo.find_by_url!(fixed_id)
+  end
+
+  # the cgi spec dictates that adjacent slashes are collapsed in PATH_INFO, so
+  # although +http://hosta/git://hostb/path.git+ is matched correctly by rails
+  # (via the +/*id+ route),  params[:id] is set to +git:/hostb/path.git+. this
+  #  method is a kludgy fix, so all repos can store their real url.
+  def fixed_id
+
+    # replace scheme:/X with scheme://X
+    # from rfc3986 section 3.1 (page 16):
+    #   scheme = ALPHA *( ALPHA / DIGIT / "+" / "-" / "." )
+    params[:id].sub %r{^([a-z][a-z0-9\+\-\.]*):/([^/]+)}i, '\1://\2'
   end
 end

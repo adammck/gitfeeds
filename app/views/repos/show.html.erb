@@ -3,8 +3,8 @@
 <% end %>
 
 <% content_for :feeds do %>
-  <%= auto_discovery_link_tag(:rss, {:action=>:commits}, :title=>t(".commits")) %>
-  <%= auto_discovery_link_tag(:rss, {:action=>:tags}, :title=>t(".tags")) %>
+  <%= auto_discovery_link_tag(:rss, commits_repo_url(@repo, :format=>:rss), :title=>t(".commits")) %>
+  <%= auto_discovery_link_tag(:rss, tags_repo_url(@repo, :format=>:rss), :title=>t(".tags")) %>
 <% end %>
 
 <% if (commits = @repo.commits).any? %>

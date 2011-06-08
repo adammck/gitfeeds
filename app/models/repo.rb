@@ -11,6 +11,11 @@ class Repo < ActiveRecord::Base
   class NotCloned < RuntimeError; end
 
 
+  def to_param
+    url
+  end
+
+
   # Return the +max_count+ most recent commits, or all commits if +max_count+ is
   # false. (Warning: Trying to fetch all commits crashes WEBrick, and is dumb.)
   def commits(max_count=nil)

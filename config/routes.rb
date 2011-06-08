@@ -2,10 +2,14 @@
 # vim: et ts=2 sw=2
 
 GitFeed::Application.routes.draw do
-  resources :repos, :only=>[:new, :create, :show], :path=>"/", :path_names=>{ :new=>"" } do
-    member do
-      get :commits
-      get :tags
-    end
-  end
+
+  # home page
+  get "/"  => "repos#new",    :as=>:new_repo
+  post "/" => "repos#create", :as=>:repos
+
+  # repo show and feeds
+  # i can't use resources here, because of the globs. (i think.)
+  get "/*id/commits(.:format)" => "repos#commits", :as=>:commits_repo
+  get "/*id/tags(.:format)"    => "repos#tags",    :as=>:tags_repo
+  get "/*id"                   => "repos#show",    :as=>:repo
 end
