@@ -3,6 +3,7 @@
 
 module ApplicationHelper
   def commit_message(commit)
-    commit.message.sub(/^#{commit.short_message}/, "").strip
+    sm = Regexp.escape(commit.short_message)
+    commit.message.sub(/^#{sm}\n*/, "").strip
   end
 end
