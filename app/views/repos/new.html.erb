@@ -16,9 +16,8 @@
 <section>
   <p><%= t ".examples" %></p>
   <ul>
-    <li><%= link_to "Rails", repo_url(1) %></li>
-    <li><%= link_to "Django", repo_url(2) %></li>
-    <li><%= link_to "jQuery", repo_url(3) %></li>
-    <li><%= link_to "Linux", repo_url(4) %></li>
+    <% example_repos.each do |repo| %>
+      <li><%= link_to repo.url, repo_url(repo) %></li>
+    <% end %>
   </ul>
 </section>
