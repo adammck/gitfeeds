@@ -1,6 +1,9 @@
 #!/usr/bin/env ruby
 # vim: et ts=2 sw=2
 
+require "simplecov"
+SimpleCov.start "rails"
+
 ENV["RAILS_ENV"] = "test"
 
 require File.expand_path("../../config/environment", __FILE__)

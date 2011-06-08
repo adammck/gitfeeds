@@ -10,3 +10,10 @@ gem "grit"
 # avoid rake 0.9 deprecation warnings.
 # (remove when upgrading to rails 3.1.)
 gem "rake", "0.8.7"
+
+# use simplecov for test coverage reports.
+# use turn for better test output (until rails 3.1).
+group :test do
+  gem "simplecov"
+  gem "turn"
+end
