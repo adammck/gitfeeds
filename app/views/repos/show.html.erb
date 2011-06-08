@@ -7,20 +7,24 @@
   <%= auto_discovery_link_tag(:rss, {:action=>:tags}, :title=>t(".tags")) %>
 <% end %>
 
-<section>
-  <h3><%= t(".commits") %></h3>
-  <ul class="commits">
-    <% @repo.commits.each do |commit| %>
-      <li><%= commit.short_message %></li>
-    <% end %>
-  </ul>
-</section>
+<% if (commits = @repo.commits).any? %>
+  <section class="commits">
+    <h3><%= t(".commits") %></h3>
+    <ul>
+      <% commits.each do |commit| %>
+        <li><%= commit.short_message %></li>
+      <% end %>
+    </ul>
+  </section>
+<% end %>
 
-<section>
-  <h3><%= t(".tags") %></h3>
-  <ul class="tags">
-    <% @repo.tags.each do |tag| %>
-      <li><%= tag.name %></li>
-    <% end %>
-  </ul>
-</section>
+<% if (tags = @repo.tags).any? %>
+  <section class="tags">
+    <h3><%= t(".tags") %></h3>
+    <ul>
+      <% tags.each do |tag| %>
+        <li><%= tag.name %></li>
+      <% end %>
+    </ul>
+  </section>
+<% end %>

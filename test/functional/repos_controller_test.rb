@@ -43,12 +43,12 @@ class ReposControllerTest < ActionController::TestCase
     assert_template "repos/show"
 
     # test/dot_git repo has five commits.
-    assert_select "ul.commits" do
+    assert_select ".commits ul" do
       assert_select "li", 5
     end
 
     # test/dot_git repo has three tags.
-    assert_select "ul.tags" do
+    assert_select ".tags ul" do
       assert_select "li", 3
     end
   end
