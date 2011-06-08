@@ -54,6 +54,42 @@ class ReposControllerTest < ActionController::TestCase
   end
 
 
+  # repos/:id/commits.rss
+
+  test "should get a reverse-chronological feed of recent commits" do
+    repo = Repo.create(:url=>example_repo_url)
+    get :commits, :id=>repo.to_param, :format=>"rss"
+
+    assert_response :success
+    assert_not_nil assigns(:repo)
+    assert_not_nil assigns(:commits)
+
+    assert_select "channel" do
+      assert_select "item:first-of-type > title", "remove one and two."
+      assert_select "item:last-of-type > title", "add one."
+      assert_select "item", :count=>5
+    end
+  end
+
+
+  # repos/:id/tags.rss
+
+  test "should get a reverse-chronological feed of recent tags" do
+    repo = Repo.create(:url=>example_repo_url)
+    get :tags, :id=>repo.to_param, :format=>"rss"
+
+    assert_response :success
+    assert_not_nil assigns(:repo)
+    assert_not_nil assigns(:tags)
+
+    assert_select "channel" do
+      assert_select "item:first-of-type > title", "three_four"
+      assert_select "item:last-of-type > title", "one_two"
+      assert_select "item", :count=>3
+    end
+  end
+
+
   # unimplemented resourceful actions
 
   test "should not get index" do
