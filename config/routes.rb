@@ -1,7 +1,7 @@
 #!/usr/bin/env ruby
 # vim: et ts=2 sw=2
 
-GitFeed::Application.routes.draw do
+GitFeeds::Application.routes.draw do
 
   # home page
   get "/"  => "repos#new",    :as=>:new_repo

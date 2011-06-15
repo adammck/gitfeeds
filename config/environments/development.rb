@@ -1,7 +1,7 @@
 #!/usr/bin/env ruby
 # vim: et ts=2 sw=2
 
-GitFeed::Application.configure do
+GitFeeds::Application.configure do
   config.cache_classes                          = false
   config.whiny_nils                             = true
   config.consider_all_requests_local            = true

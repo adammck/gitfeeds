@@ -7,13 +7,13 @@ require "rails/all"
 Bundler.require(:default, Rails.env)\
   if defined?(Bundler)
 
-module GitFeed
+module GitFeeds
   class Application < Rails::Application
 
     # rails config
     config.filter_parameters += [:password]
 
-    # gitfeed config
+    # gitfeeds config
     config.recent_commits = 20
     config.recent_tags = 20
   end
