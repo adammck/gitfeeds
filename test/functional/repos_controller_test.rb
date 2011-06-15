@@ -53,6 +53,26 @@ class ReposControllerTest < ActionController::TestCase
     end
   end
 
+  test "should create valid but new repos on-demand" do
+    assert_difference("Repo.count", 1) do
+      get :show, :id=>example_repo_url
+
+      assert_response :success
+      assert_not_nil assigns(:repo)
+      assert_template "repos/show"
+    end
+  end
+
+  test "should not create invalid repos on-demand" do
+    assert_no_difference("Repo.count") do
+      get :show, :id=>invalid_repo_url
+
+      assert_response :missing
+      assert_not_nil assigns(:repo)
+      assert_template "repos/new"
+    end
+  end
+
 
   # repos/:id/commits.rss
 

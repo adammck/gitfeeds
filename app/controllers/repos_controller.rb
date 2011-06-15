@@ -41,10 +41,16 @@ class ReposController < ApplicationController
     end
   end
 
+
   private
 
+  # if a previously-unknown repo url is requested, try to create it on-demand.
+  # this allows people to link to repos on gitfeed without having to create them
+  # in advance. if the id (clone url) is invalid, abort by rendering the create
+  # form with errors.
   def load_repo
-    @repo = Repo.find_by_url!(fixed_id)
+    @repo = Repo.find_or_create_by_url(fixed_id)
+    render :new, :status=>404 unless @repo.persisted?
   end
 
   # the cgi spec dictates that adjacent slashes are collapsed in PATH_INFO, so
