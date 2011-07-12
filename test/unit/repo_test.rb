@@ -31,7 +31,7 @@ class RepoTest < ActiveSupport::TestCase
   end
 
   test "should validate with a valid git repo url" do
-    repo = Repo.new :url=>"git://github.com/adammck/gitfeed.git"
+    repo = Repo.new :url=>"git://github.com/adammck/gitfeeds.git"
     assert repo.valid?
   end
 
