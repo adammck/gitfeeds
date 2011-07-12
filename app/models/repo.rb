@@ -29,6 +29,14 @@ class Repo < ActiveRecord::Base
     (max_count == false) ? grit.tags : grit.tags[0, max_count]
   end
 
+  # Return all commits between +from+ and +to+.
+  def commits_between(from, to)
+    Grit::Commit.find_all(grit, "master", {
+      :since=>from,
+      :until=>to
+    })
+  end
+
 
   private
 

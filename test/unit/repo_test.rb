@@ -67,6 +67,20 @@ class RepoTest < ActiveSupport::TestCase
   end
 
 
+  # commits by date
+
+  test "should return a reverse-chronological list of commits between two dates" do
+    repo = Repo.create! :url=>example_repo_url
+    commits = repo.commits_between(
+      example_repo_weeks.first.beginning_of_week,
+      example_repo_weeks.first.end_of_week)
+
+    assert_equal 5, commits.length
+    assert_equal "remove one and two.", commits.first.message # newest
+    assert_equal "add one.", commits.last.message             # oldest
+  end
+
+
   # tags
 
   test "should return a reverse-chronological list of all tags" do
