@@ -25,7 +25,8 @@ class ActiveSupport::TestCase
   # Return a list of the weeks which commits were made to the example repo.
   def example_repo_weeks
     [
-      DateTime.new(2011, 05, 30) # commits on: Sun Jun 5 04:33:25 2011 -0400
+      DateTime.new(2011, 05, 30), # commits on: Sun Jun 5 04:33:25 2011 -0400
+      DateTime.new(2011, 07, 10)  # commits on: Mon Jul 11 21:10:03 2011 -0400
     ]
   end
 end
