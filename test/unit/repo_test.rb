@@ -80,6 +80,15 @@ class RepoTest < ActiveSupport::TestCase
     assert_equal "add one.", commits.last.message             # oldest
   end
 
+  test "should return a reverse-chronological list of commits for a week" do
+    repo = Repo.create! :url=>example_repo_url
+    commits = repo.commits_for_week(example_repo_weeks.first)
+
+    assert_equal 5, commits.length
+    assert_equal "remove one and two.", commits.first.message # newest
+    assert_equal "add one.", commits.last.message             # oldest
+  end
+
 
   # tags
 
