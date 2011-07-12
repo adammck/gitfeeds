@@ -7,3 +7,11 @@ tmp/
 # adammck
 *.tmproj
 coverage*
+
+# non-essential example repo files
+test/dot_git/COMMIT_EDITMSG
+test/dot_git/description
+test/dot_git/config
+test/dot_git/hooks
+test/dot_git/info
+test/dot_git/logs
