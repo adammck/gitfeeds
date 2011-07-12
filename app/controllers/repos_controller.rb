@@ -2,11 +2,8 @@
 # vim: et ts=2 sw=2
 
 class ReposController < ApplicationController
-  before_filter :load_repo, :except => [:new, :create]
+  before_filter :load_repo, :except=>[:new, :create]
 
-  # GET /:id
-  def show
-  end
 
   # GET /
   def new
@@ -21,6 +18,11 @@ class ReposController < ApplicationController
     else
       render :new
     end
+  end
+
+
+  # GET /:id
+  def show
   end
 
   # GET /:id/commits.rss
@@ -45,9 +47,9 @@ class ReposController < ApplicationController
   private
 
   # if a previously-unknown repo url is requested, try to create it on-demand.
-  # this allows people to link to repos on gitfeed without having to create them
-  # in advance. if the id (clone url) is invalid, abort by rendering the create
-  # form with errors.
+  # this allows people to link to repos on gitfeeds.com without having to create
+  # them in advance. if the id (clone url) is invalid, abort by rendering the
+  # create form with errors.
   def load_repo
     @repo = Repo.find_or_create_by_url(fixed_id)
     render :new, :status=>404 unless @repo.persisted?

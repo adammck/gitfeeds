@@ -13,6 +13,7 @@ class ReposControllerTest < ActionController::TestCase
 
   test "should get new repo form" do
     get :new
+
     assert_response :success
     assert_not_nil assigns(:repo)
     assert_template "repos/new"
@@ -21,15 +22,22 @@ class ReposControllerTest < ActionController::TestCase
   test "should create repo" do
     assert_difference("Repo.count", 1) do
       post :create, :repo=>{ :url=>example_repo_url }
+
+      assert_response :redirect
+      assert_not_nil assigns(:repo)
       assert_redirected_to repo_path(assigns(:repo))
     end
   end
 
   test "should not create invalid repos" do
-    post :create, :repo=>{ :url=>invalid_repo_url }
-    assert_not_nil assigns(:repo)
-    assert_template "repos/new"
-    assert_select "ul.errors"
+    assert_no_difference("Repo.count") do
+      post :create, :repo=>{ :url=>invalid_repo_url }
+
+      assert_response :success
+      assert_not_nil assigns(:repo)
+      assert_template "repos/new"
+      assert_select "ul.errors"
+    end
   end
 
 
@@ -39,6 +47,7 @@ class ReposControllerTest < ActionController::TestCase
     repo = Repo.create(:url=>example_repo_url)
     get :show, :id=>repo.to_param
 
+    assert_response :success
     assert_not_nil assigns(:repo)
     assert_template "repos/show"
 
