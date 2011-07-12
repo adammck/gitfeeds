@@ -53,9 +53,9 @@ class RepoTest < ActiveSupport::TestCase
     repo = Repo.create! :url=>example_repo_url
     ca = repo.commits(false)
 
+    assert_equal 5, ca.length
     assert_equal "remove one and two.", ca.first.message # newest
     assert_equal "add one.", ca.last.message             # oldest
-    assert_equal 5, ca.length
   end
 
   test "should limit the number of commits returned" do
@@ -96,9 +96,9 @@ class RepoTest < ActiveSupport::TestCase
     repo = Repo.create! :url=>example_repo_url
     ta = repo.tags(false)
 
+    assert_equal 3, ta.length
     assert_equal "three_four", ta.first.name # newest
     assert_equal "one_two", ta.last.name     # oldest
-    assert_equal 3, ta.length
   end
 
   test "should limit the number of tags returned" do
