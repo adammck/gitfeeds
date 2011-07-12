@@ -51,14 +51,13 @@ class ReposControllerTest < ActionController::TestCase
     assert_not_nil assigns(:repo)
     assert_template "repos/show"
 
-    # test/dot_git repo has five commits.
     assert_select ".commits ul" do
-      assert_select "li", 5
+      assert_select "li", TOTAL_COMMITS
     end
 
     # test/dot_git repo has three tags.
     assert_select ".tags ul" do
-      assert_select "li", 3
+      assert_select "li", TOTAL_TAGS
     end
   end
 
@@ -94,9 +93,9 @@ class ReposControllerTest < ActionController::TestCase
     assert_not_nil assigns(:commits)
 
     assert_select "channel" do
-      assert_select "item:first-of-type > title", "remove one and two."
-      assert_select "item:last-of-type > title", "add one."
-      assert_select "item", :count=>5
+      assert_select "item:first-of-type > title", NEWEST_COMMIT_MSG
+      assert_select "item:last-of-type > title", OLDEST_COMMIT_MSG
+      assert_select "item", :count=>TOTAL_COMMITS
     end
   end
 
@@ -114,7 +113,7 @@ class ReposControllerTest < ActionController::TestCase
     assert_select "channel" do
       assert_select "item:first-of-type > title", "three_four"
       assert_select "item:last-of-type > title", "one_two"
-      assert_select "item", :count=>3
+      assert_select "item", :count=>TOTAL_TAGS
     end
   end
 

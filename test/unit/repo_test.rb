@@ -53,9 +53,9 @@ class RepoTest < ActiveSupport::TestCase
     repo = Repo.create! :url=>example_repo_url
     ca = repo.commits(false)
 
-    assert_equal 5, ca.length
-    assert_equal "remove one and two.", ca.first.message # newest
-    assert_equal "add one.", ca.last.message             # oldest
+    assert_equal TOTAL_COMMITS, ca.length
+    assert_equal NEWEST_COMMIT_MSG, ca.first.message
+    assert_equal OLDEST_COMMIT_MSG, ca.last.message
   end
 
   test "should limit the number of commits returned" do
@@ -71,11 +71,12 @@ class RepoTest < ActiveSupport::TestCase
 
   test "should return a reverse-chronological list of commits between two dates" do
     repo = Repo.create! :url=>example_repo_url
+
     commits = repo.commits_between(
       example_repo_weeks.first.beginning_of_week,
       example_repo_weeks.first.end_of_week)
 
-    assert_equal 5, commits.length
+    assert_equal FIRST_WEEK_COMMITS, commits.length
     assert_equal "remove one and two.", commits.first.message # newest
     assert_equal "add one.", commits.last.message             # oldest
   end
@@ -84,7 +85,7 @@ class RepoTest < ActiveSupport::TestCase
     repo = Repo.create! :url=>example_repo_url
     commits = repo.commits_for_week(example_repo_weeks.first)
 
-    assert_equal 5, commits.length
+    assert_equal FIRST_WEEK_COMMITS, commits.length
     assert_equal "remove one and two.", commits.first.message # newest
     assert_equal "add one.", commits.last.message             # oldest
   end
@@ -96,7 +97,7 @@ class RepoTest < ActiveSupport::TestCase
     repo = Repo.create! :url=>example_repo_url
     ta = repo.tags(false)
 
-    assert_equal 3, ta.length
+    assert_equal TOTAL_TAGS, ta.length
     assert_equal "three_four", ta.first.name # newest
     assert_equal "one_two", ta.last.name     # oldest
   end
