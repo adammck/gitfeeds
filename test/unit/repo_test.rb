@@ -36,13 +36,13 @@ class RepoTest < ActiveSupport::TestCase
   end
 
   test "should not allow duplicate urls" do
-    assert Repo.create(:url=>example_repo_url).valid?
-    assert Repo.create(:url=>example_repo_url).invalid?
+    assert Repo.create(:url=>EXAMPLE_REPO_URL).valid?
+    assert Repo.create(:url=>EXAMPLE_REPO_URL).invalid?
   end
 
   test "should raise Repo::NotCloned if the repo is queried before cloning" do
     assert_raises Repo::NotCloned do
-      Repo.new(:url=>example_repo_url).commits
+      Repo.new(:url=>EXAMPLE_REPO_URL).commits
     end
   end
 
@@ -50,7 +50,7 @@ class RepoTest < ActiveSupport::TestCase
   # commits
 
   test "should return a reverse-chronological list of all commits" do
-    repo = Repo.create! :url=>example_repo_url
+    repo = Repo.create! :url=>EXAMPLE_REPO_URL
     ca = repo.commits(false)
 
     assert_equal TOTAL_COMMITS, ca.length
@@ -59,7 +59,7 @@ class RepoTest < ActiveSupport::TestCase
   end
 
   test "should limit the number of commits returned" do
-    repo = Repo.create! :url=>example_repo_url
+    repo = Repo.create! :url=>EXAMPLE_REPO_URL
     Rails.configuration.recent_commits = 2
 
     assert_equal 2, repo.commits.length    # app config
@@ -69,21 +69,21 @@ class RepoTest < ActiveSupport::TestCase
 
   # commits by date
 
-  test "should return a reverse-chronological list of commits between two dates" do
-    repo = Repo.create! :url=>example_repo_url
+  test "should return commits between two dates" do
+    repo = Repo.create! :url=>EXAMPLE_REPO_URL
 
     commits = repo.commits_between(
-      example_repo_weeks.first.beginning_of_week,
-      example_repo_weeks.first.end_of_week)
+      EXAMPLE_REPO_WEEKS.first.beginning_of_week,
+      EXAMPLE_REPO_WEEKS.first.end_of_week)
 
     assert_equal FIRST_WEEK_COMMITS, commits.length
     assert_equal "remove one and two.", commits.first.message # newest
     assert_equal "add one.", commits.last.message             # oldest
   end
 
-  test "should return a reverse-chronological list of commits for a week" do
-    repo = Repo.create! :url=>example_repo_url
-    commits = repo.commits_for_week(example_repo_weeks.first)
+  test "should return commits for a week" do
+    repo = Repo.create! :url=>EXAMPLE_REPO_URL
+    commits = repo.commits_for_week(EXAMPLE_REPO_WEEKS.first)
 
     assert_equal FIRST_WEEK_COMMITS, commits.length
     assert_equal "remove one and two.", commits.first.message # newest
@@ -94,7 +94,7 @@ class RepoTest < ActiveSupport::TestCase
   # tags
 
   test "should return a reverse-chronological list of all tags" do
-    repo = Repo.create! :url=>example_repo_url
+    repo = Repo.create! :url=>EXAMPLE_REPO_URL
     ta = repo.tags(false)
 
     assert_equal TOTAL_TAGS, ta.length
@@ -103,7 +103,7 @@ class RepoTest < ActiveSupport::TestCase
   end
 
   test "should limit the number of tags returned" do
-    repo = Repo.create! :url=>example_repo_url
+    repo = Repo.create! :url=>EXAMPLE_REPO_URL
     Rails.configuration.recent_tags = 2
 
     assert_equal 2, repo.tags.length    # app config

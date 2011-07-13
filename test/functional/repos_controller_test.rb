@@ -21,7 +21,7 @@ class ReposControllerTest < ActionController::TestCase
 
   test "should create repo" do
     assert_difference("Repo.count", 1) do
-      post :create, :repo=>{ :url=>example_repo_url }
+      post :create, :repo=>{ :url=>EXAMPLE_REPO_URL }
 
       assert_response :redirect
       assert_not_nil assigns(:repo)
@@ -31,7 +31,7 @@ class ReposControllerTest < ActionController::TestCase
 
   test "should not create invalid repos" do
     assert_no_difference("Repo.count") do
-      post :create, :repo=>{ :url=>invalid_repo_url }
+      post :create, :repo=>{ :url=>INVALID_REPO_URL }
 
       assert_response :success
       assert_not_nil assigns(:repo)
@@ -44,7 +44,7 @@ class ReposControllerTest < ActionController::TestCase
   # repos/:id
 
   test "should show list of recent commits and tags" do
-    repo = Repo.create(:url=>example_repo_url)
+    repo = Repo.create(:url=>EXAMPLE_REPO_URL)
     get :show, :id=>repo.to_param
 
     assert_response :success
@@ -63,7 +63,7 @@ class ReposControllerTest < ActionController::TestCase
 
   test "should create valid but new repos on-demand" do
     assert_difference("Repo.count", 1) do
-      get :show, :id=>example_repo_url
+      get :show, :id=>EXAMPLE_REPO_URL
 
       assert_response :success
       assert_not_nil assigns(:repo)
@@ -73,7 +73,7 @@ class ReposControllerTest < ActionController::TestCase
 
   test "should not create invalid repos on-demand" do
     assert_no_difference("Repo.count") do
-      get :show, :id=>invalid_repo_url
+      get :show, :id=>INVALID_REPO_URL
 
       assert_response :missing
       assert_not_nil assigns(:repo)
@@ -85,7 +85,7 @@ class ReposControllerTest < ActionController::TestCase
   # repos/:id/commits.rss
 
   test "should get a reverse-chronological feed of recent commits" do
-    repo = Repo.create(:url=>example_repo_url)
+    repo = Repo.create(:url=>EXAMPLE_REPO_URL)
     get :commits, :id=>repo.to_param, :format=>"rss"
 
     assert_response :success
@@ -103,7 +103,7 @@ class ReposControllerTest < ActionController::TestCase
   # repos/:id/tags.rss
 
   test "should get a reverse-chronological feed of recent tags" do
-    repo = Repo.create(:url=>example_repo_url)
+    repo = Repo.create(:url=>EXAMPLE_REPO_URL)
     get :tags, :id=>repo.to_param, :format=>"rss"
 
     assert_response :success

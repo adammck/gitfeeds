@@ -27,22 +27,15 @@ class ActiveSupport::TestCase
   # The commit message of the most recent commit made to the example repo.
   NEWEST_COMMIT_MSG = "remove four and add six."
 
+  # The git URL of the example repo.
+  EXAMPLE_REPO_URL = "file://" + Rails.root.join("test", "dot_git").to_s
 
-  # Return the local path to the example repo.
-  def example_repo_url
-    "file://" + Rails.root.join("test", "dot_git").to_s
-  end
+  # An invalid repo URL.
+  INVALID_REPO_URL = "invalid"
 
-  # Return an arbitrary invalid repo url.
-  def invalid_repo_url
-    "invalid"
-  end
-
-  # Return a list of the weeks which commits were made to the example repo.
-  def example_repo_weeks
-    [
-      DateTime.new(2011, 05, 30), # commits on: Sun Jun 5 04:33:25 2011 -0400
-      DateTime.new(2011, 07, 10)  # commits on: Mon Jul 11 21:10:03 2011 -0400
-    ]
+  # The weeks which commits were made to the example repo.
+  EXAMPLE_REPO_WEEKS = [
+    DateTime.parse("Mon, 30 May 2011 00:00:00 -0400"),
+    DateTime.parse("Mon, 11 Jul 2011 00:00:00 -0400")]
   end
 end
