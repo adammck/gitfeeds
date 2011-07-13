@@ -9,6 +9,14 @@
     <% @weeks.each do |week| %>
       <item>
         <title><%= t ".item_title", :week=>format_week(week) %></title>
+        <pubDate><%= week.datetime.to_s(:rfc822) %></pubDate>
+        <description>
+          <ul>
+            <% week.commits.each do |commit| %>
+              <li><%= commit.short_message %></li>
+            <% end %>
+          </ul>
+        </description>
       </item>
     <% end %>
   </channel>
