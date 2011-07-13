@@ -37,5 +37,4 @@ class ActiveSupport::TestCase
   EXAMPLE_REPO_WEEKS = [
     DateTime.parse("Mon, 30 May 2011 00:00:00 -0400"),
     DateTime.parse("Mon, 11 Jul 2011 00:00:00 -0400")]
-  end
 end
