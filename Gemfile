@@ -5,7 +5,7 @@ source "http://rubygems.org"
 
 gem "rails", "3.0.7"
 gem "sqlite3"
-gem "grit", :git=>"git://github.com/adammck/grit.git", :branch=>"fix_since_until"
+gem "grit", :git=>"git://github.com/adammck/grit.git"
 
 # avoid rake 0.9 deprecation warnings.
 # (remove when upgrading to rails 3.1.)
