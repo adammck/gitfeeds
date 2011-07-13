@@ -8,16 +8,25 @@ en:
   # views
 
   repos:
+
     new:
       intro: "Enter the Git URL of any repository to get started:"
       examples: "Or view a popular project for an example:"
+
     show:
       commits: "Recent Commits"
       tags: "Recent Tags"
+      weekly: "Recent Commits by Week"
+
     commits:
       title: "Recent Commits to %{repo}"
+
     tags:
       title: "Recent Tags to %{repo}"
+
+    weekly:
+      title: "Recent Commits to %{repo} by Week"
+      item_title: "Commits During Week of %{week}"
 
   # validation errors
 

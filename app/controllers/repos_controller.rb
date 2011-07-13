@@ -43,6 +43,15 @@ class ReposController < ApplicationController
     end
   end
 
+  # GET /:id/weekly.rss
+  def weekly
+    @weeks = @repo.commits_by_week
+
+    respond_to do |fmt|
+      fmt.rss
+    end
+  end
+
 
   private
 

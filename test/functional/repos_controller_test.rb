@@ -118,6 +118,24 @@ class ReposControllerTest < ActionController::TestCase
   end
 
 
+  # repos/:id/weekly.rss
+
+  test "should get a reverse-chronological feed of recent commits, grouped by week" do
+    repo = Repo.create(:url=>EXAMPLE_REPO_URL)
+    get :weekly, :id=>repo.to_param, :format=>"rss"
+
+    assert_response :success
+    assert_not_nil assigns(:repo)
+    assert_not_nil assigns(:weeks)
+
+    assert_select "channel" do
+      assert_select "item:first-of-type > title", %r[07/11/11] # newest first
+      assert_select "item:last-of-type > title", %r[05/30/11]  # oldest last
+      assert_select "item", :count=>2
+    end
+  end
+
+
   # unimplemented resourceful actions
 
   test "should not get index" do

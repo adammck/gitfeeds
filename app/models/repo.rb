@@ -32,9 +32,7 @@ class Repo < ActiveRecord::Base
   # Return all commits made between +from+ and +to+.
   def commits_between(from, to)
     Grit::Commit.find_all(grit, "master", {
-      :since=>from,
-      :until=>to
-    })
+      :since=>from, :until=>to })
   end
 
   # Return all commits made during +week+.
@@ -42,6 +40,25 @@ class Repo < ActiveRecord::Base
     commits_between(
       week.beginning_of_week,
       week.end_of_week)
+  end
+
+  # Return the +max_count+ most recent weeks containing commits, or all weeks if
+  # +max_count+ is false.
+  def commits_by_week(max_count=nil)
+    max_count = Rails.configuration.recent_weeks if max_count.nil?
+    week = DateTime.now.beginning_of_week
+    weeks = []
+
+    # keep collecting weeks until we have enough.
+    while weeks.length < max_count && week > DateTime.new(2011)
+      commits = commits_for_week(week)
+      if commits.any?
+        weeks << Week.new(week, commits)
+      end
+      week -= 1.week
+    end
+
+    weeks
   end
 
 

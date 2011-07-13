@@ -5,6 +5,7 @@
 <% content_for :feeds do %>
   <%= auto_discovery_link_tag(:rss, commits_repo_url(@repo, :format=>:rss), :title=>t(".commits")) %>
   <%= auto_discovery_link_tag(:rss, tags_repo_url(@repo, :format=>:rss), :title=>t(".tags")) %>
+  <%= auto_discovery_link_tag(:rss, weekly_repo_url(@repo, :format=>:rss), :title=>t(".weekly")) %>
 <% end %>
 
 <% if (commits = @repo.commits).any? %>

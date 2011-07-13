@@ -90,6 +90,24 @@ class RepoTest < ActiveSupport::TestCase
     assert_equal "add one.", commits.last.message             # oldest
   end
 
+  test "should return empty array for empty weeks" do
+    repo = Repo.create! :url=>EXAMPLE_REPO_URL
+    week = EXAMPLE_REPO_WEEKS.first - 1.month
+    assert_equal [], repo.commits_for_week(week)
+  end
+
+
+  # commits by week
+
+  test "should return weeks containing commits" do
+    repo = Repo.create! :url=>EXAMPLE_REPO_URL
+    weeks = repo.commits_by_week
+
+    assert_equal EXAMPLE_REPO_WEEKS.length, weeks.length
+    assert_equal EXAMPLE_REPO_WEEKS.last, weeks.first.datetime # newest
+    assert_equal EXAMPLE_REPO_WEEKS.first, weeks.last.datetime # oldest
+  end
+
 
   # tags
 
