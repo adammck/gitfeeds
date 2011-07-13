@@ -17,3 +17,9 @@ group :test do
   gem "simplecov"
   gem "turn"
 end
+
+# use thin, since webrick crashes when crunching large repos.
+# start the development server with: rails server thin
+group :development do
+  gem "thin"
+end
