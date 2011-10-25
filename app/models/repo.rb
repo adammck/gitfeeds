@@ -26,8 +26,7 @@ class Repo < ActiveRecord::Base
       tmp_path.rename(path)
 
     rescue
-      tmp_path.rmtree\
-        if tmp_path.exist?
+      tmp_path.rmtree if tmp_path.exist?
     end
   end
 
@@ -97,8 +96,7 @@ class Repo < ActiveRecord::Base
   end
 
   def delete_local
-    path.rmtree\
-      if path.exist?
+    path.rmtree if path.exist?
   end
 
   def path(ext="git")
