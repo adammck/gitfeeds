@@ -84,7 +84,7 @@ class ReposControllerTest < ActionController::TestCase
 
   # repos/:id/commits.rss
 
-  test "should get a reverse-chronological feed of recent commits" do
+  test "should get a feed of commits" do
     repo = Repo.create(:url=>EXAMPLE_REPO_URL)
     get :commits, :id=>repo.to_param, :format=>"rss"
 
@@ -102,7 +102,7 @@ class ReposControllerTest < ActionController::TestCase
 
   # repos/:id/tags.rss
 
-  test "should get a reverse-chronological feed of recent tags" do
+  test "should get a feed of tags" do
     repo = Repo.create(:url=>EXAMPLE_REPO_URL)
     get :tags, :id=>repo.to_param, :format=>"rss"
 
@@ -120,7 +120,7 @@ class ReposControllerTest < ActionController::TestCase
 
   # repos/:id/weekly.rss
 
-  test "should get a reverse-chronological feed of recent commits, grouped by week" do
+  test "should get a feed of commits by week" do
     repo = Repo.create(:url=>EXAMPLE_REPO_URL)
     get :weekly, :id=>repo.to_param, :format=>"rss"
 

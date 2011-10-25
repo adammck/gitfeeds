@@ -40,7 +40,7 @@ class RepoTest < ActiveSupport::TestCase
     assert Repo.create(:url=>EXAMPLE_REPO_URL).invalid?
   end
 
-  test "should raise Repo::NotCloned if the repo is queried before cloning" do
+  test "should raise NotCloned if queried before cloning" do
     assert_raises Repo::NotCloned do
       Repo.new(:url=>EXAMPLE_REPO_URL).commits
     end
