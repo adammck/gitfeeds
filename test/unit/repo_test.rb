@@ -46,6 +46,13 @@ class RepoTest < ActiveSupport::TestCase
     end
   end
 
+  test "should create a resque job to clone asynchronously" do
+    with_config :background_jobs=>true do
+      repo = Repo.create! :url=>EXAMPLE_REPO_URL
+      assert_queued(CloneJob, [repo.id])
+    end
+  end
+
 
   # commits
 

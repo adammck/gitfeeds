@@ -38,3 +38,22 @@ class ActiveSupport::TestCase
     DateTime.parse("Mon, 30 May 2011 00:00:00 -0400"),
     DateTime.parse("Mon, 11 Jul 2011 00:00:00 -0400")]
 end
+
+# Temporarily change the Rails configuration for the duration of a block.
+def with_config(opts)
+  old_config = {}
+
+  opts.each do |key, value|
+    old_config[key] = Rails.configuration.send(key)
+    Rails.configuration.send("#{key}=", value)
+  end
+
+  begin
+    yield
+
+  ensure
+    old_config.each do |key, value|
+      Rails.configuration.send("#{key}=", value)
+    end
+  end
+end
