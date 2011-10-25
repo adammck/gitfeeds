@@ -42,6 +42,12 @@ header { }
         list-style: disc;
       }
 
+  #main section.error {
+    text-align: center;
+    font-style: italic;
+    color: #ccc;
+  }
+
 
 footer {
   border-top: 2px solid #ddd;

@@ -7,6 +7,7 @@ tmp/
 # adammck
 *.tmproj
 coverage*
+Gemfile.lock
 
 # non-essential example repo files
 test/dot_git/COMMIT_EDITMSG

@@ -10,4 +10,7 @@ GitFeeds::Application.configure do
   config.action_controller.allow_forgery_protection = false
   config.action_mailer.delivery_method              = :test
   config.active_support.deprecation                 = :stderr
+
+  # gitfeeds config
+  config.background_jobs = false
 end
