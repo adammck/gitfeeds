@@ -16,17 +16,24 @@ class Repo < ActiveRecord::Base
   end
 
   # Clone the repo locally. This can be very slow, so should be called from a
-  # background worker. See +CloneJob+ for that.
+  # background worker. See +CloneJob+ and +schedule_clone+ for help with that.
   def clone!
     git = Grit::Git.new("/tmp")
-    git.native(:clone, { :bare=>true }, url, path.to_s)
+    tmp_path = path("busy")
+
+    begin
+      git.native(:clone, { :bare=>true }, url, tmp_path.to_s)
+      tmp_path.rename(path)
+
+    rescue
+      tmp_path.rmtree\
+        if tmp_path.exist?
+    end
   end
 
-  # Block until the repo has been cloned, and is available for querying.
-  def block_until_cloned!
-    while not path.exist?
-      sleep(0.5)
-    end
+  # Return +true+ if this repo is ready for querying (i.e. it has been cloned).
+  def ready?
+    path.exist?
   end
 
 
@@ -90,11 +97,12 @@ class Repo < ActiveRecord::Base
   end
 
   def delete_local
-    path.rmtree if path.exist?
+    path.rmtree\
+      if path.exist?
   end
 
-  def path
-    Rails.root.join "tmp", "repos", Rails.env, id.to_s + ".git"
+  def path(ext="git")
+    Rails.root.join "tmp", "repos", Rails.env, "#{id}.#{ext}"
   end
 
   def grit
