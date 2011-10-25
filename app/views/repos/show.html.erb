@@ -8,24 +8,33 @@
   <%= auto_discovery_link_tag(:rss, weekly_repo_url(@repo, :format=>:rss), :title=>t(".weekly")) %>
 <% end %>
 
-<% if (commits = @repo.commits).any? %>
-  <section class="commits">
-    <h3><%= t(".commits") %></h3>
-    <ul>
-      <% commits.each do |commit| %>
-        <li><%= commit.short_message %></li>
-      <% end %>
-    </ul>
-  </section>
-<% end %>
+<% if @repo.ready? %>
+  <% if (commits = @repo.commits).any? %>
+    <section class="commits">
+      <h3><%= t(".commits") %></h3>
+      <ul>
+        <% commits.each do |commit| %>
+          <li><%= commit.short_message %></li>
+        <% end %>
+      </ul>
+    </section>
+  <% end %>
 
-<% if (tags = @repo.tags).any? %>
-  <section class="tags">
-    <h3><%= t(".tags") %></h3>
-    <ul>
-      <% tags.each do |tag| %>
-        <li><%= tag.name %></li>
-      <% end %>
-    </ul>
+  <% if (tags = @repo.tags).any? %>
+    <section class="tags">
+      <h3><%= t(".tags") %></h3>
+      <ul>
+        <% tags.each do |tag| %>
+          <li><%= tag.name %></li>
+        <% end %>
+      </ul>
+    </section>
+  <% end %>
+<% else %>
+  <section class="error not-ready">
+    <p>
+      This repo isn't available yet.<br>
+      It's probably still cloning.
+    </p>
   </section>
 <% end %>
