@@ -4,7 +4,7 @@
 class Repo < ActiveRecord::Base
   validates :url, :presence=>true, :uniqueness=>true, :is_git_url=>true
 
-  after_create :clone_local
+  after_create :schedule_clone
   after_destroy :delete_local
 
   # raised when calling methods which require a local clone before it exists.
@@ -13,6 +13,20 @@ class Repo < ActiveRecord::Base
 
   def to_param
     url
+  end
+
+  # Clone the repo locally. This can be very slow, so should be called from a
+  # background worker. See +CloneJob+ for that.
+  def clone!
+    git = Grit::Git.new("/tmp")
+    git.native(:clone, { :bare=>true }, url, path.to_s)
+  end
+
+  # Block until the repo has been cloned, and is available for querying.
+  def block_until_cloned!
+    while not path.exist?
+      sleep(0.5)
+    end
   end
 
 
@@ -64,13 +78,19 @@ class Repo < ActiveRecord::Base
 
   private
 
-  def clone_local
-    git = Grit::Git.new("/tmp")
-    git.native(:clone, { :bare=>true }, url, path.to_s)
+  # If background jobs are enabled, queue a +CloneJob+ to clone this repo at
+  # some undefined point in the future. If disabled, clone the repo immediately.
+  def schedule_clone
+    if Rails.configuration.background_jobs
+      Resque.enqueue(CloneJob, id)
+
+    else
+      clone!
+    end
   end
 
   def delete_local
-    path.rmtree
+    path.rmtree if path.exist?
   end
 
   def path

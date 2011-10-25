@@ -14,6 +14,7 @@ module GitFeeds
     config.filter_parameters += [:password]
 
     # gitfeeds config
+    config.background_jobs = true
     config.recent_commits = 20
     config.recent_tags = 20
     config.recent_weeks = 8
