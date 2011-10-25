@@ -50,6 +50,10 @@ class RepoTest < ActiveSupport::TestCase
     with_config :background_jobs=>true do
       repo = Repo.create! :url=>EXAMPLE_REPO_URL
       assert_queued(CloneJob, [repo.id])
+
+      # TODO: extract this into a separate CloneJobTest.
+      Resque.run!
+      assert repo.ready?
     end
   end
 
@@ -66,11 +70,12 @@ class RepoTest < ActiveSupport::TestCase
   end
 
   test "should limit the number of commits returned" do
-    repo = Repo.create! :url=>EXAMPLE_REPO_URL
-    Rails.configuration.recent_commits = 2
+    with_config :recent_commits=>2 do
+      repo = Repo.create! :url=>EXAMPLE_REPO_URL
 
-    assert_equal 2, repo.commits.length    # app config
-    assert_equal 1, repo.commits(1).length # explicit
+      assert_equal 2, repo.commits.length    # app config
+      assert_equal 1, repo.commits(1).length # explicit
+    end
   end
 
 
@@ -128,10 +133,11 @@ class RepoTest < ActiveSupport::TestCase
   end
 
   test "should limit the number of tags returned" do
-    repo = Repo.create! :url=>EXAMPLE_REPO_URL
-    Rails.configuration.recent_tags = 2
+    with_config :recent_tags=>2 do
+      repo = Repo.create! :url=>EXAMPLE_REPO_URL
 
-    assert_equal 2, repo.tags.length    # app config
-    assert_equal 1, repo.tags(1).length # explicit
+      assert_equal 2, repo.tags.length    # app config
+      assert_equal 1, repo.tags(1).length # explicit
+    end
   end
 end
