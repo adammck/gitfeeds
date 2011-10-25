@@ -16,6 +16,7 @@ gem "rake", "0.8.7"
 # use turn for better test output (until rails 3.1).
 group :test do
   gem "simplecov"
+  gem "minitest"
   gem "turn"
 end
 
