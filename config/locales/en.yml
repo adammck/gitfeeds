@@ -2,7 +2,7 @@
 
 en:
   site_title: "GitFeeds"
-  footer: '<a href="http://github.com/adammck/gitfeeds">GitFeeds</a> is free software by <a href="http://adammck.com">Adam Mckaig</a>, available under <a href="http://github.com/adammck/gitfeeds/blob/master/LICENSE">the BSD license</a>.'
+  footer: '<a href="http://github.com/adammck/gitfeeds">GitFeeds</a> is free software by <a href="http://adammck.com">Adam Mckaig</a>, available under <a href="http://github.com/adammck/gitfeeds/blob/master/LICENSE">the MIT license</a>.'
 
 
   # views
