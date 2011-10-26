@@ -9,8 +9,8 @@ GitFeeds::Application.routes.draw do
 
   # repo show and feeds
   # i can't use resources here, because of the globs. (i think.)
-  get "/*id/commits(.:format)" => "repos#commits", :as=>:commits_repo
-  get "/*id/tags(.:format)"    => "repos#tags",    :as=>:tags_repo
-  get "/*id/weekly(.:format)"  => "repos#weekly",  :as=>:weekly_repo
-  get "/*id"                   => "repos#show",    :as=>:repo
+  get "/*id/commits" => "repos#commits", :as=>:commits_repo
+  get "/*id/tags"    => "repos#tags",    :as=>:tags_repo
+  get "/*id/weekly"  => "repos#weekly",  :as=>:weekly_repo
+  get "/*id"         => "repos#show",    :as=>:repo, :format=>false
 end
