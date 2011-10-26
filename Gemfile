@@ -3,17 +3,17 @@
 
 source "http://rubygems.org"
 
-gem "rails", "3.0.7"
+gem "rails", "3.1.0"
+gem "coffee-rails"
+gem "sass-rails"
+gem "uglifier"
+
 gem "sqlite3"
 gem "grit", :git=>"git://github.com/adammck/grit.git"
 gem "resque"
 
 # use require_all for loading jobs.
 gem "require_all"
-
-# avoid rake 0.9 deprecation warnings.
-# (remove when upgrading to rails 3.1.)
-gem "rake", "0.8.7"
 
 # use simplecov for test coverage reports.
 # use turn for better test output (until rails 3.1).
