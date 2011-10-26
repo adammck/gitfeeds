@@ -12,6 +12,7 @@ module GitFeeds
 
     # rails config
     config.filter_parameters += [:password]
+    config.assets.enabled = true
 
     # gitfeeds config
     config.background_jobs = true
