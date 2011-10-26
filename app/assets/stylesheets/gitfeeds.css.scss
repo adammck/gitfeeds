@@ -1,63 +1,63 @@
 // vim: et ts=2 sw=2
 
 
-header { }
-
-  header h1, header h2 {
+header {
+  h1, h2 {
     font-size: 200%;
     padding: 0.5em;
   }
 
-    header h1 { background: #ddd; }
-    header h2 { background: #eee; }
+  h1 { background: #ddd; }
+  h2 { background: #eee; }
 
-    header a {
-      text-decoration: none;
-      color: inherit;
-    }
+  a {
+    text-decoration: none;
+    color: inherit;
+  }
+}
 
 
 #main {
   padding: 0 1em;
-}
 
-  #main section {
+  section {
     margin: 2em 0;
-  }
 
-    #main h3 {
+    h3 {
       font-weight: bold;
     }
 
-    #main p, #main ul, #main h3 {
+    p, ul, h3 {
       margin: 0.75em 0;
       line-height: 1.5;
     }
 
-    #main ul {
+    ul {
       margin-left: 1.5em;
-    }
 
-      #main li {
+      li {
         list-style: disc;
       }
+    }
 
-  #main section.error {
-    text-align: center;
-    font-style: italic;
-    color: #ccc;
+    &.error {
+      text-align: center;
+      font-style: italic;
+      color: #ccc;
+    }
   }
+}
 
 
 footer {
   border-top: 2px solid #ddd;
   font-size: 80%;
   padding: 1.25em;
-}
 
-    footer a {
-      color: inherit;
-    }
+  a {
+    color: inherit;
+  }
+}
 
 
 #repo_url {
