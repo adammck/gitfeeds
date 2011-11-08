@@ -10,7 +10,9 @@ gem "uglifier"
 
 gem "sqlite3"
 gem "grit", :git=>"git://github.com/adammck/grit.git"
+
 gem "resque"
+gem "resque-loner"
 
 # use require_all for loading jobs.
 gem "require_all"

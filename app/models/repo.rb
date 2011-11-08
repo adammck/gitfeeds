@@ -10,6 +10,11 @@ class Repo < ActiveRecord::Base
   # raised when calling methods which require a local clone before it exists.
   class NotCloned < RuntimeError; end
 
+  class << self
+    def stale
+      where("pulled_at is null or pulled_at < ?", 15.minutes.ago)
+    end
+  end
 
   def to_param
     url
@@ -24,10 +29,22 @@ class Repo < ActiveRecord::Base
     begin
       git.native(:clone, { :bare=>true }, url, tmp_path.to_s)
       tmp_path.rename(path)
+      mark_pulled!
 
     rescue
       tmp_path.rmtree if tmp_path.exist?
     end
+  end
+
+  # Update the local repo. Like +clone!+, this can be very slow, so should be
+  # called from a background. See +PullJob+ for help with that.
+  def pull!
+    grit.native(:pull)
+    mark_pulled!
+  end
+
+  def mark_pulled!
+    update_attributes :pulled_at=>DateTime.now
   end
 
   # Return +true+ if this repo is ready for querying (i.e. it has been cloned).
@@ -81,9 +98,6 @@ class Repo < ActiveRecord::Base
     weeks
   end
 
-
-  private
-
   # If background jobs are enabled, queue a +CloneJob+ to clone this repo at
   # some undefined point in the future. If disabled, clone the repo immediately.
   def schedule_clone
@@ -94,6 +108,20 @@ class Repo < ActiveRecord::Base
       clone!
     end
   end
+
+  # Very similar to +schedule_clone+. If background jobs are enabled, queue a
+  # +PullJob+ to pull (update) this repo in the future. If disabled, pull the
+  # repo immediately.
+  def schedule_pull
+    if Rails.configuration.background_jobs
+      Resque.enqueue(PullJob, id)
+
+    else
+      pull!
+    end
+  end
+
+  private
 
   def delete_local
     path.rmtree if path.exist?

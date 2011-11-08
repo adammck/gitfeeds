@@ -8,6 +8,9 @@ class RepoTest < ActiveSupport::TestCase
     Repo.destroy_all
   end
 
+
+  # validations
+
   test "should not validate without an url" do
     assert Repo.new.invalid?
   end
@@ -40,6 +43,9 @@ class RepoTest < ActiveSupport::TestCase
     assert Repo.create(:url=>EXAMPLE_REPO_URL).invalid?
   end
 
+
+  # behavior
+
   test "should raise NotCloned if queried before cloning" do
     assert_raises Repo::NotCloned do
       Repo.new(:url=>EXAMPLE_REPO_URL).commits
@@ -54,6 +60,12 @@ class RepoTest < ActiveSupport::TestCase
       # TODO: extract this into a separate CloneJobTest.
       Resque.run!
       assert repo.ready?
+    end
+  end
+
+  test "should create a resque job to pull asychronously" do
+    with_config :background_jobs=>true do
+      # TODO
     end
   end
 
