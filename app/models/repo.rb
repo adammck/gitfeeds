@@ -66,7 +66,7 @@ class Repo < ActiveRecord::Base
   # +max_count+ is false.
   def commits_by_week(max_count=nil)
     max_count = Rails.configuration.recent_weeks if max_count.nil?
-    week = DateTime.now.beginning_of_week
+    week = DateTime.now.utc.beginning_of_week
     weeks = []
 
     # keep collecting weeks until we have enough.

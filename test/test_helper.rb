@@ -35,8 +35,8 @@ class ActiveSupport::TestCase
 
   # The weeks which commits were made to the example repo.
   EXAMPLE_REPO_WEEKS = [
-    DateTime.parse("Mon, 30 May 2011 00:00:00 -0400"),
-    DateTime.parse("Mon, 11 Jul 2011 00:00:00 -0400")]
+    DateTime.parse("Mon, 30 May 2011 00:00:00 +0000"),
+    DateTime.parse("Mon, 11 Jul 2011 00:00:00 +0000")]
 end
 
 # Temporarily change the Rails configuration for the duration of a block.
