@@ -28,7 +28,7 @@ group :test do
 end
 
 # use thin, since webrick crashes when crunching large repos.
-# start the development server with: rails server thin
-group :development do
+# start the application server(s) with: rails server thin
+group :development, :production do
   gem "thin"
 end
