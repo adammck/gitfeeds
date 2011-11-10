@@ -32,3 +32,9 @@ end
 group :development, :production do
   gem "thin"
 end
+
+# use therubyracer in production, since most Linux distros don't provide a js
+# runtime out of the box. just to simplify deployment, really.
+group :production do
+  gem "therubyracer"
+end
